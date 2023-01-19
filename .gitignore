@@ -1,3 +1,5 @@
 # dependencies
 /dir
 /maildir
+/error
+/.tar.gz
