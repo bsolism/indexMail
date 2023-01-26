@@ -29,10 +29,12 @@ func Search() {
 			Search()
 		} else {
 			count++
-			result := ReadFile(path, folder, count)
-			if result.Message_ID != "Error" {
-				data := convertJsonToString(result)
-				service.Post(data, path, folder.Name(), count)
+			if count > 378707 {
+				result := ReadFile(path, folder, count)
+				if result.Message_ID != "Error" {
+					data := convertJsonToString(result)
+					service.Post(data, path, folder.Name(), count)
+				}
 			}
 		}
 		if i == len(folders) {
@@ -52,7 +54,7 @@ func Search() {
 }
 
 func convertJsonToString(jDta models.Email) string {
-	result := "{ \"index\" : { \"_index\" : \"enron_mail2\" } } \n"
+	result := "{ \"index\" : { \"_index\" : \"enron_mail\" } } \n"
 	result += `{"message_Id":"` + jDta.Message_ID + `","date":"` + jDta.Date + `","from":"` + jDta.From +
 		`","to":"` + jDta.To + `","subject":"` + jDta.Subject + `","mime_version":"` + jDta.Mime_Version +
 		`","content_type":"` + jDta.Content_Type + `","content_transfer_encoding":"` + jDta.Content_Transfer_Encoding +
